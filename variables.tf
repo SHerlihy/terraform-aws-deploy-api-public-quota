@@ -25,7 +25,7 @@ variable "quota" {
 
   validation {
     condition = contains(local.quota_periods, var.quota.period)
-    error_message = "quota.period must be one of ${local.quota_periods}"
+    error_message = "quota.period must be one of: ${join(", ", local.quota_periods)}."
   }
 }
 
@@ -53,11 +53,11 @@ locals {
 check "path_settings_v_api_settings" {
   assert {
     condition = var.throttle.burst >= local.path_burst_total
-    error_message = "Sum of path burst limits greater than API burst limit by ${local.path_burst_total-var.throttle.burst}"
+    error_message = "Sum of path burst limits greater than API burst limit by ${(local.path_burst_total)-(var.throttle.burst)}"
   }
   assert {
     condition = var.throttle.rate >= local.path_rate_total
-    error_message = "Sum of path rate limits greater than API rate limit by ${local.path_rate_total-var.throttle.rate}"
+    error_message = "Sum of path rate limits greater than API rate limit by ${(local.path_rate_total)-(var.throttle.rate)}"
   }
 }
 
