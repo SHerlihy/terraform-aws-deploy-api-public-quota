@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.0, <2.0"
+  required_version = ">= 1.5, <2.0"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -18,7 +18,7 @@ resource "aws_api_gateway_deployment" "default" {
 }
 
 resource "aws_api_gateway_stage" "default" {
-  rest_api_id = var.api_id
+  rest_api_id   = var.api_id
   deployment_id = aws_api_gateway_deployment.default.id
   stage_name    = var.stage_name
 
@@ -26,9 +26,9 @@ resource "aws_api_gateway_stage" "default" {
 }
 
 resource "aws_api_gateway_method_settings" "default" {
-  for_each = local.paths
+  for_each    = local.paths
   rest_api_id = var.api_id
-  stage_name    = var.stage_name
+  stage_name  = var.stage_name
   method_path = each.value
 
   settings {
@@ -45,21 +45,21 @@ resource "aws_api_gateway_api_key" "default" {
 }
 
 resource "aws_api_gateway_usage_plan" "default" {
-  name    = var.stage_name
+  name = var.stage_name
 
   api_stages {
     api_id = var.api_id
-    stage    = var.stage_name
+    stage  = var.stage_name
   }
 
   quota_settings {
-    limit = var.quota.limit
+    limit  = var.quota.limit
     period = var.quota.period
   }
 
   throttle_settings {
     burst_limit = var.throttle.burst
-    rate_limit = var.throttle.rate
+    rate_limit  = var.throttle.rate
   }
 
   tags = var.tags
