@@ -1,13 +1,3 @@
-terraform {
-  required_version = ">= 1.5, <2.0"
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = ">= 6.0, <7.0"
-    }
-  }
-}
-
 # will have to taint
 resource "aws_api_gateway_deployment" "default" {
   rest_api_id = var.api_id
