@@ -28,18 +28,18 @@ resource "aws_api_gateway_method_settings" "default" {
 }
 
 resource "aws_api_gateway_api_key" "default" {
-  name  = aws_api_gateway_stage.default.stage_name
+  name    = aws_api_gateway_stage.default.stage_name
   enabled = true
 
   tags = var.tags
 }
 
 resource "aws_api_gateway_usage_plan" "default" {
-  name  = aws_api_gateway_stage.default.stage_name
+  name = aws_api_gateway_stage.default.stage_name
 
   api_stages {
     api_id = var.api_id
-  stage  = aws_api_gateway_stage.default.stage_name
+    stage  = aws_api_gateway_stage.default.stage_name
   }
 
   quota_settings {
