@@ -19,7 +19,8 @@ module "deploy_apis" {
   }
 
   for_each = local.api_names
-  source   = "../deploy_api"
+  source  = "SHerlihy/deploy-api-public-quota/aws"
+  version = "0.0.1"
 
   api_id     = local.deploy_config_apis[each.value].api_id
   stage_name = local.deploy_config_apis[each.value].stage_name
